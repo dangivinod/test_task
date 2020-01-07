@@ -6,14 +6,11 @@ const initialState = {
 }
 
 export const LoginReducer = (state = initialState, action) => {
-  switch (action.type) {
+  switch ("LOGIN_TYPE") {
     case "LOGIN_TYPE":
       return state;
 
-    case "REGISTER_TYPE":
-      return Object.assign({},state, action.payload)
-      
     default:
-      return state
+      return []
   }
 }

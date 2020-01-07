@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { } from 'react';
 import { connect } from 'react-redux';
-import { useSelector } from "react-redux";
+import { withRouter } from 'react-router-dom';
 
 import { Form, Button, Row, Col, Container } from 'react-bootstrap';
 
@@ -23,12 +23,15 @@ class LoginView extends React.Component {
 		})
 		if(form.checkValidity()){
 			let { login } = this.props;
-			debugger
+			if(this.state.username === login.username && this.state.password === login.password){
+				this.props.history.push('/employee_list')
+			}else{
+				alert("Please Enter correct username and password :) ")
+			}
 		}
 	};
 
 	render() {
-		console.log(">>>>>>>>>>>>>> ", this.props)
 		return (
 			<Container>
 				<Row>
@@ -36,11 +39,11 @@ class LoginView extends React.Component {
 					<Col xs={5}>
 						<h3>
 							Login View
-					</h3>
+						</h3>
 						<Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit.bind(this)}>
 							<Form.Group controlId="formBasicEmail">
 								<Form.Label>Username</Form.Label>
-								<Form.Control required type="text" name="username" placeholder="Enter username"
+								<Form.Control required type="text" name="username" placeholder="username@yourmail.com"
 									onChange={(e) => this.setState({[e.target.name]: e.target.value})}
 								/>
 								<Form.Text className="text-muted">
@@ -79,4 +82,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, null)(LoginView);
+export default withRouter(connect(mapStateToProps, null)(LoginView));
